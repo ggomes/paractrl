@@ -8,16 +8,16 @@ controller_dt = 300;
 model_dt = 5;
 time_horizon = 300;
 
-% 0. create real world model
+% create real world model
 model = Model(config_file,0,model_dt);
 
-% 1. Create base block
+% Create base block
 baseblock = BaseBlock({ ...
     AlineaFeedbackController(model,5) , ...
     NeuralNetworkFeedbackController(model) , ...
 });
 
-% 2. create the base block and Parallel block
+% create the base block and Parallel block
 size_base_block = baseblock.num_controllers;
 parallelblock = ParallelBlock({ ...
     LinearizedMPCController(size_base_block) , ...
@@ -40,14 +40,7 @@ warm_starts = baseblock.compute_control_sequence(current_state,predicted_demands
 parallelblock.compute_control_sequence(warm_starts,current_state,predicted_demands);
 
 
-evaluatorblock.evaluate
+best_controller = evaluator.choose_best_controller(current_state,predicted_demands);
 
-best_controller = evaluatorblock.get_best_controller
-
-model.set_controller(best_controller)
-
-
-
-% BaseBlock = []; % set of feedback and predictive controllers
-% ParallelBlock = []; % set of predictivewarmstart controllers
+% model.set_controller(best_controller)
 

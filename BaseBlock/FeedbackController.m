@@ -1,6 +1,4 @@
 classdef FeedbackController < AbstractController
-    %UNTITLED3 Summary of this class goes here
-    %   Detailed explanation goes here
     
     properties
         model   % model used to generate a control sequence

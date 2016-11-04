@@ -1,22 +1,22 @@
-classdef DemandProfile
+classdef DemandProfile < handle
     
     properties
-        time 
-        values_map@containers.Map
+        time        % 1 x K (seconds)
+        link_ids    % I x 1 (source links)
+        demands     % I x K (veh / time step)
     end
     
     methods
         
-        function this = DemandProfile(time)
-            this.time = time;
-            this.values_map = containers.Map('KeyType','int32','ValueType','any');
+        function this = DemandProfile(link_ids)
+            this.link_ids = link_ids;
+            this.time = [];
+            this.demands = [];
         end
         
-        function this = add_values(this,link_id,values)
-            if length(values)~=length(this.time)
-                error('length(values)~=length(this.time)')
-            end
-            this.values_map(link_id) = values;
+        function this = add_values(this,t,d)
+            this.time = [this.time t];
+            this.demands = [this.demands d];
         end
         
         function this = perturb(this,delta)
