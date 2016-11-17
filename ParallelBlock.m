@@ -3,7 +3,7 @@ classdef ParallelBlock < handle
     %   Detailed explanation goes here
     
     properties
-        controllers 
+        controllers  @AbstractController
         ctrl_seq_input % array of controlsequence, as large as the number of base block controllers
         warm_start_control_sequence % this is an array of control sequences
                                     % set by set_warm_start

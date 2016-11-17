@@ -3,7 +3,7 @@ classdef BaseBlock < handle
     %   Detailed explanation goes here
     
     properties
-        controllers 
+        controllers @AbstractController
     end
     
     methods
