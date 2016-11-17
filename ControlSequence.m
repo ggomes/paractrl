@@ -1,8 +1,8 @@
 classdef ControlSequence < handle
     
     properties
-        controller
-        time                 % 1 x K
+        controller @ AbstractController
+        time                 % 1 x K [in seconds after midnight]
         link_ids             % I x 1  (controlled ramps) 
         control_sequence     % I x K  [veh/time step]
     end
@@ -16,6 +16,7 @@ classdef ControlSequence < handle
             this.time = [];
         end
         
+        % NOTE DOCUMENT THIS!
         function this = add_values(this,t,c)
             this.time = [this.time t];
             this.control_sequence = [this.control_sequence c];            

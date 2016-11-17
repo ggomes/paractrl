@@ -1,17 +1,17 @@
 clear
 close all
 
-% ana made a change
+here = fileparts(mfilename('fullpath'));
+beats_folder = fullfile(here,'beats');
 
-config_file = '';
 evaluator_pert = 0.2;
 start_time = 0;
 controller_dt = 300;
-model_dt = 5;
+model_dt = 4;
 time_horizon = 300;
 
 % create real world model
-model = Model(config_file,0,model_dt);
+model = Model(fullfile(beats_folder,'x.xml'),0,model_dt);
 
 % Create base block
 baseblock = BaseBlock({ ...

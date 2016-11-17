@@ -15,12 +15,25 @@ classdef Model < handle
 
         function this = Model(config_file,perturbation,dt)
             this.dt = dt;
+            
+            
+            this.beats = BeatsSimulation;
+            this.beats.load_scenario(config_file);
+            
+            % GG need to do this:
             this.link_ids = [1 2 3]';
             this.controlled_link_ids = [1 2]';
             this.source_link_ids = [1 2]';
             warning('implement this')
         end
         
+        % pass in:
+        %    controller @AbstractController 
+        %    initial_state @State 
+        %    predicted_demands @DemandProfile 
+        % returns :
+        %    control_sequence @ControlSequence
+        %    state_trajectory @StateTrajectory 
         function [control_sequence,state_trajectory]=run_with_controller(this,controller,initial_state,predicted_demands)
             
             initial_time = predicted_demands.get_initial_time;
@@ -46,7 +59,12 @@ classdef Model < handle
             end
                         
         end
-               % returns a DemandProfile
+        
+        % pass in:
+        %    start_time         [seconds after midnight]
+        %    end_time           [seconds after midnight]
+        % returns :
+        %    x @DemandProfile
         function [x] = predict_demands(this,start_time,end_time)
             
             x = DemandProfile(this.source_link_ids);

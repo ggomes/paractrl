@@ -14,11 +14,13 @@ classdef DemandProfile < handle
             this.demands = [];
         end
         
+        % NOTE DOCUMENT THIS
         function this = add_values(this,t,d)
             this.time = [this.time t];
             this.demands = [this.demands d];
         end
         
+        % NOTE DOCUMENT THIS
         function this = perturb(this,delta)
             warning('implement this')
         end
