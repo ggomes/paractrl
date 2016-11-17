@@ -6,7 +6,7 @@ classdef Evaluator < handle
         scores
     end
     
-    methods
+    methods(Access=public)
         
         function this = Evaluator(baseblock,parallelblock,config_file,perturbation,model_dt)
             this.controllers = [baseblock.controllers,parallelblock.controllers];
@@ -28,6 +28,10 @@ classdef Evaluator < handle
             best_controller = this.controllers{best_ind};
             
         end
+
+    end
+    
+    methods(Access=private)
                 
         function [J] = evaluate_performance(this,state_trajectory)
             
@@ -35,8 +39,7 @@ classdef Evaluator < handle
             warning('implement this')
             
         end
-
+        
     end
-    
 end
 

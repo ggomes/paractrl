@@ -11,7 +11,7 @@ classdef Model < handle
         beats
     end
     
-    methods
+    methods(Access=public)
 
         function this = Model(config_file,perturbation,dt)
             this.dt = dt;
@@ -20,7 +20,6 @@ classdef Model < handle
             this.source_link_ids = [1 2]';
             warning('implement this')
         end
-        
         
         function [control_sequence,state_trajectory]=run_with_controller(this,controller,initial_state,predicted_demands)
             
@@ -47,6 +46,21 @@ classdef Model < handle
             end
                         
         end
+               % returns a DemandProfile
+        function [x] = predict_demands(this,start_time,end_time)
+            
+            x = DemandProfile(this.source_link_ids);
+            time = start_time:this.dt:end_time;
+            for t = 1:length(time)
+                v = rand(length(this.source_link_ids),1);
+                x.add_values(time(t),v);
+            end
+            warning('implement this')
+        end
+        
+    end
+    
+    methods(Access=private)
         
         function []=set_state(this,initial_state)
             warning('implement this')
@@ -69,19 +83,7 @@ classdef Model < handle
             this.current_time = this.current_time + this.dt;
             warning('implement this')
         end
-        
-        % returns a DemandProfile
-        function [x] = predict_demands(this,start_time,end_time)
-            
-            x = DemandProfile(this.source_link_ids);
-            time = start_time:this.dt:end_time;
-            for t = 1:length(time)
-                v = rand(length(this.source_link_ids),1);
-                x.add_values(time(t),v);
-            end
-            warning('implement this')
-        end
-        
+ 
     end
     
 end
