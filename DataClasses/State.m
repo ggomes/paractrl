@@ -4,14 +4,17 @@ classdef State
     
     properties
         link_ids    % I x 1
-        link_dty    % I x 1 [veh / link]
+        link_veh    % I x 1 [veh / link]
     end
     
     methods
         
         function this = State(link_ids)
             this.link_ids = link_ids;
-            this.link_dty = [];
+            if size(this.link_ids,1)==1
+                this.link_ids = this.link_ids';
+            end
+            this.link_veh = [];
         end
         
     end

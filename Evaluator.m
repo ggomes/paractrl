@@ -1,16 +1,16 @@
 classdef Evaluator < handle
     
     properties
-        controllers
-        model
+        controllers  % array of AbstractController
+        model @Model
         scores
     end
     
     methods(Access=public)
         
-        function this = Evaluator(baseblock,parallelblock,config_file,perturbation,model_dt)
+        function this = Evaluator(baseblock,parallelblock,config_file,model_dt)
             this.controllers = [baseblock.controllers,parallelblock.controllers];
-            this.model = Model(config_file,perturbation,model_dt);
+            this.model = Model(config_file,model_dt);
             this.scores = nan(1,length(this.controllers));
         end
         

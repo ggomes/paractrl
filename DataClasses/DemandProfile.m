@@ -15,14 +15,9 @@ classdef DemandProfile < handle
         end
         
         
-        % NOTE DOCUMENT THIS!
-        function this = add_values(this,t,d)
-            this.time = [this.time t];
-            this.demands = [this.demands d];
-        end
+        % NOTE DOCUMENT THIS
         
         
-        % NOTE DOCUMENT THIS!
         function this = perturb(this,delta)
             warning('implement this')
         end
@@ -36,6 +31,13 @@ classdef DemandProfile < handle
             x = this.time(end);
         end
         
+        function []=plot(this)
+            figure
+            plot(this.time,this.demands)
+            grid
+            xlabel('time [sec]')
+            ylabel('flow [vph]')
+        end
     end
     
 end
