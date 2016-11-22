@@ -6,6 +6,8 @@ beats_folder = fullfile(here,'beats');
 addpath(fullfile(here,'BaseBlock'))
 addpath(fullfile(here,'beats'))
 addpath(fullfile(here,'DataClasses'))
+addpath(fullfile(here,'lib','ppt'))
+addpath(fullfile(here,'lib','xml_io_tools_2007_07'))
 addpath(fullfile(here,'ParallelBlock'))
 javaaddpath(fullfile(here,'beats','beats-0.1-SNAPSHOT-jar-with-dependencies.jar'))
 
