@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.0.2">
+  <xs:include schemaLocation="generic.xsd"/>
+
+  
+  <xs:element name="VDS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="position" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="parameters" minOccurs="1" maxOccurs="1" />
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:long" use="required"/>
+      <xs:attribute name="freeway_num" type="xs:int" use="required"/>
+      <xs:attribute name="direction" type="xs:string" use="required"/>
+      <xs:attribute name="lane_count" type="xs:int" use="required"/>
+      <xs:attribute name="district" type="xs:int" use="required"/>
+      <xs:attribute name="county" type="xs:string" use="required"/>
+      <xs:attribute name="city" type="xs:string" use="required"/>
+      <xs:attribute name="state_postmile" type="xs:double" use="required" />
+      <xs:attribute name="absolute_postmile" type="xs:double" use="required" />
+      <xs:attribute name="detector_length" type="xs:double" use="optional" default="0" />
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="PeMSDataSet">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="PeMSDataProfile" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="PeMSDataProfile">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="PeMSDatum" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="vds_id" type="xs:long" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="PeMSDatum">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="GFactor" minOccurs="1" maxOccurs="unbounded" />
+        <xs:element name="timestamp" type="dateTime" minOccurs="1" maxOccurs="1" />
+      </xs:sequence>
+      <xs:attribute name="flow" type="xs:double" use="optional" default="0.0"/>
+      <xs:attribute name="density" type="xs:double" use="optional" default="0.0"/>
+      <xs:attribute name="density_error" type="xs:double" use="optional" default="0.0"/>
+      <xs:attribute name="speed" type="xs:double" use="optional" default="27.0"/>
+      <xs:attribute name="speed_error" type="xs:double" use="optional" default="0.0"/>
+      <xs:attribute name="free_flow_speed" type="xs:double" use="optional" default="27.0"/>
+      <xs:attribute name="func_loop_fact" type="xs:double" use="optional"/>
+      <xs:attribute name="vds_id" type="xs:long" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="PeMSAggregateDataSet">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="PeMSAggregateDataProfile" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="PeMSAggregateDataProfile">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="PeMSAggregateDatum" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="vds_id" type="xs:long" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="PeMSAggregateDatum">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="timestamp" type="dateTime" minOccurs="1" maxOccurs="1" />
+      </xs:sequence>
+      <xs:attribute name="flow" type="xs:double" use="optional" default="0.0"/>
+      <xs:attribute name="density" type="xs:double" use="optional" default="0.0"/>
+      <xs:attribute name="speed" type="xs:double" use="optional" default="27.0"/>
+      <xs:attribute name="health" type="xs:double" use="optional"/>
+      <xs:attribute name="run_id" type="xs:long" use="required"/>
+      <xs:attribute name="vds_id" type="xs:long" use="required"/>
+      <xs:attribute name="agg_period" type="xs:int" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="PeMSStation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="GFactor" minOccurs="1" maxOccurs="unbounded" />
+        <xs:element name="timestamp" type="dateTime" minOccurs="1" maxOccurs="1" />
+      </xs:sequence>
+      <xs:attribute name="flow" type="xs:double" use="optional" default="0.0"/>
+      <xs:attribute name="density" type="xs:double" use="optional" default="0.0"/>
+      <xs:attribute name="density_error" type="xs:double" use="optional" default="0.0"/>
+      <xs:attribute name="speed" type="xs:double" use="optional" default="27.0"/>
+      <xs:attribute name="speed_error" type="xs:double" use="optional" default="0.0"/>
+      <xs:attribute name="free_flow_speed" type="xs:double" use="optional" default="27.0"/>
+      <xs:attribute name="func_loop_fact" type="xs:double" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="GFactor">
+    <xs:complexType>
+      <xs:attribute name="lane" type="xs:integer" use="required"/>
+      <xs:attribute name="g_factor" type="xs:double" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="PeMSStationAggregate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="PeMSAggregate" minOccurs="1" maxOccurs="unbounded" />
+        <xs:element name="timestamp" type="dateTime" minOccurs="1" maxOccurs="1" />
+      </xs:sequence>
+      <xs:attribute name="vds_id" type="xs:long" use="required"/>
+      </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="PeMSAggregate">
+    <xs:complexType>
+      <xs:attribute name="lane" type="xs:integer" use="required"/>
+      <xs:attribute name="samples" type="xs:long" use="optional" default="-1"/>
+      <xs:attribute name="flow" type="xs:double" use="optional" default="0.0"/>
+      <xs:attribute name="avg_occupancy" type="xs:double" use="optional" default="0.0"/>
+      <xs:attribute name="avg_speed" type="xs:double" use="optional" default="0.0"/>
+      <xs:attribute name="observed" type="xs:double" use="optional" default="100.0"/>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="PIFProbeDataSet">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="PIFProbeData" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="lockedForEdit" type="xs:boolean" use="optional" default="false" />
+			<xs:attribute name="lockedForHistory" type="xs:boolean" use="optional" default="false" />
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="PIFProbeData">
+  	<xs:complexType>
+	  	<xs:sequence>
+	  		<xs:element name="timestamp" type="dateTime" minOccurs="1" maxOccurs="1" />
+	  	</xs:sequence>  
+      <xs:attribute name="network_id" type="xs:long" use="required"/>
+      <xs:attribute name="link_id" type="xs:long" use="required"/>
+      <xs:attribute name="run_id" type="xs:long" use="required"/>
+      <xs:attribute name="offset" type="xs:double" use="required"/>
+      <xs:attribute name="speed" type="xs:double" use="required"/>
+      <xs:attribute name="probability" type="xs:double" use="optional" default="1.0"/>
+ 	  	<xs:attribute name="mod_stamp" type="xs:string" use="optional" default="0" />
+    </xs:complexType>
+  </xs:element>
+  
+
+</xs:schema>
+

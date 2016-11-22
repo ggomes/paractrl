@@ -1,0 +1,7 @@
+1	Raw	Output of simulator, estimator, other programs. Other aggregations result from processing raw data.
+2	Total	The aggregation of all data
+3	1 Min	NEN
+4	5 Min	NEN
+5	15 Min	NEN
+6	1 Hour	NEN
+7	1 Day	NEN

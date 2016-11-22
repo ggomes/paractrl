@@ -1,0 +1,4 @@
+1	Estimator	Estimates real world traffic conditions based upon near or real time data feed.
+2	Simulator	Simulates traffic conditions based upon a set of initial conditions and assumptions.
+3	Basic Calibrator	Calibrates only fundamental diagrams as analyzed by the collected data on a given network.
+4	Calibrator	A more extensive calibrator that takes other variables into account and analyses fault conditions.

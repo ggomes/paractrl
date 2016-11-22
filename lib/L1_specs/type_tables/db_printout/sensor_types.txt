@@ -1,0 +1,5 @@
+1	Loop	This is loop of wire that is embeded in the roadway that generates a magnetic field that is perturbed by a vehicle passing over it.
+2	Magnetic	A sensor that detects a vehicle by analyzing the magnetic signature of the metalic mass.
+3	RADAR	A sensor that usesRADAR to detect both the presence of a vehicle and its speed.
+4	Camera	A sensor that uses a video image to detect a vehicle.
+5	TMC	TMC stands for Traffic Message Channel. This is a static way of reporting probe measurements employed by INRIX, Navteq, etc.

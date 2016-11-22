@@ -1,0 +1,2 @@
+10	Test	Algorithm that assigns nominal parameters only.
+1	Optimistic	Optimistic Algorithm (aka Gunes' algorithm)

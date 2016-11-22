@@ -1,0 +1,19 @@
+1	IRM ALINEA	IRM stands for Isolated Ramp Metering – ramp metering on individual on-ramps. ALINEA is the name of RM algorithm.
+2	IRM TOD	TOD stands for Time Of Day – fixed rates for given times of the day.
+3	IRM TOS	Traffic responsive controller based on lookup tables.
+4	CRM HERO	CRM stands for Coordinated Ramp Metering. HERO is the name of CRM algorithm.
+5	CRM SWARM	SWARM is the name of another CRM algorithm, developed by Delcan.
+6	VSL TOD	VSL stands for Variable Speed Limit, TOD – for Time Of Day.
+7	VSL ALINEA	VSL with ALINEA algorithm.
+8	ML TOLL_Reaction	ML – Managed Lanes. Models drivers’ reaction to tolls.
+9	ML TOLL_Pricing	Controller that computes toll pricing.
+10	ML Shoulder	Controller that opens a shoulder as an extra lane based on traffic condition.
+11	SIG TOD	Signal controller based on TOD plan (also known as “pre-timed signal control”.
+12	SIG Actuated	Actuated signal control.
+13	SIG Synchronized	Actuated signal control synchronized over multiple intersections.
+14	SIG TUC	One of the adaptive signal control algorithms. TUC stands for Traffic-responsive Urban Control.
+15	FAC 1	Freeway Arterial Coordination – scenario 1.
+16	FAC 2	Freeway Arterial Coordination – scenario 2.
+17	FAC 3	Freeway Arterial Coordination – scenario 3.
+18	FAC 4	Freeway Arterial Coordination – scenario 4.
+19	CRM_MPC	Coordinated ramp metering MPC

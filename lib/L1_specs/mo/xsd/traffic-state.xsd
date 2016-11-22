@@ -1,0 +1,673 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.0.2">
+  <xs:include schemaLocation="scenario.xsd"/>
+
+
+  <!-- Route Performance Set -->
+  <xs:element name="routePerformanceSet">
+    <xs:complexType>
+      <xs:all>
+				<xs:element name="timestamp" type="dateTime" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="routePerformance" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:all>
+
+      <!-- Run ID - if used at this level, it
+           applies to the states of all links in the set. -->
+      <xs:attribute name="run_id" type="xs:long" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- Route Performance -->
+  <xs:element name="routePerformance">
+    <xs:complexType>
+      <xs:all>
+        <!-- Timestamp for the route performance - optional, because
+	     it can be assigned to the <routePerformanceSet> at once. -->
+				<xs:element name="timestamp" type="dateTime" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="linkStateSet" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="linkPerformanceSet" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:all>
+
+      <!-- Route ID. -->
+      <xs:attribute name="id" type="xs:long" use="required"/>
+
+      <!-- Run ID is optional - it can be 
+           assigned at the <routePerformanceSet> level. -->
+      <xs:attribute name="run_id" type="xs:long" use="optional"/>
+
+      <!-- Actual travel time through the route. -->
+      <xs:attribute name="travel_time" type="xs:double" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- Link State Set -->
+  <xs:element name="linkStateSet">
+    <xs:complexType>
+      <xs:all>
+				<xs:element name="timestamp" type="dateTime" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="linkState" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:all>
+
+      <!-- Network reference - if used at this level, it
+           applies to the states of all links in the set. -->
+      <xs:attribute name="network_id" type="xs:long" use="optional"/>
+
+      <!-- Run ID - if used at this level, it
+           applies to the states of all links in the set. -->
+      <xs:attribute name="run_id" type="xs:long" use="optional"/>
+
+      <!-- Particle ID is used in enseble estimation or prediction
+           for debug purpose only. When particle ID is set,
+           quantity_type is implied to be 'standard'.
+           If used at this level, particle ID applies to the states
+           of all links in the set. -->
+      <xs:attribute name="particle_id" type="xs:long" use="optional" default="-1"/>
+      
+      <!-- Aggregation time interval - if used at this level, it
+           applies to the states of all links in the set. -->
+      <xs:attribute name="dt" type="xs:long" use="optional"/>
+
+      <!-- Quantity type - if used at this level, it
+           applies to the states of all links in the set. -->
+      <xs:attribute name="quantity_type" use="optional">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="standard|mean|median|1q|3q|95|min|max|best|worst"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Link State Debug Set -->
+  <xs:element name="linkStateDebugSet">
+      <xs:complexType>
+          <xs:all>
+              <xs:element name="timestamp" type="dateTime" minOccurs="0" maxOccurs="1" />
+              <xs:element ref="linkState-debug" minOccurs="1" maxOccurs="unbounded"/>
+          </xs:all>
+
+          <!-- Network reference - if used at this level, it
+               applies to the states of all links in the set. -->
+          <xs:attribute name="network_id" type="xs:long" use="optional"/>
+
+          <!-- Run ID - if used at this level, it
+               applies to the states of all links in the set. -->
+          <xs:attribute name="run_id" type="xs:long" use="optional"/>
+
+          <!-- Particle ID is used in enseble estimation or prediction
+               for debug purpose only. When particle ID is set,
+               quantity_type is implied to be 'standard'.
+               If used at this level, particle ID applies to the states
+               of all links in the set. -->
+          <xs:attribute name="particle_id" type="xs:long" use="optional" default="-1"/>
+
+          <!-- Aggregation time interval - if used at this level, it
+               applies to the states of all links in the set. -->
+          <xs:attribute name="dt" type="xs:long" use="optional"/>
+
+          <!-- Quantity type - if used at this level, it
+               applies to the states of all links in the set. -->
+          <xs:attribute name="quantity_type" use="optional">
+              <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                      <xs:pattern value="standard|mean|median|1q|3q|95|min|max|best|worst"/>
+                  </xs:restriction>
+              </xs:simpleType>
+          </xs:attribute>
+      </xs:complexType>
+  </xs:element>
+
+
+    <!-- Link Performance Set -->
+  <xs:element name="linkPerformanceSet">
+    <xs:complexType>
+      <xs:all>
+				<xs:element name="timestamp" type="dateTime" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="linkPerformance" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:all>
+
+      <!-- Network reference - if used at this level, it
+           applies to the performances of all links in the set. -->
+      <xs:attribute name="network_id" type="xs:long" use="optional"/>
+
+      <!-- Run ID - if used at this level, it
+           applies to the performances of all links in the set. -->
+      <xs:attribute name="run_id" type="xs:long" use="optional"/>
+
+      <!-- Aggregation time interval - if used at this level, it
+           applies to the performances of all links in the set. -->
+      <xs:attribute name="dt" type="xs:double" use="optional"/>
+
+      <!-- Quantity type - if used at this level, it
+           applies to the performances of all links in the set. -->
+      <xs:attribute name="quantity_type" use="optional">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="standard|mean|median|1q|3q|95|min|max|best|worst"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- Link State -->
+  <xs:element name="linkState">
+    <xs:complexType>
+      <xs:all>
+        <!-- Timestamp for the link state - optional, because
+	     it can be assigned to the <linkStateSet> at once. -->
+	    <xs:element name="timestamp" type="dateTime" minOccurs="0" maxOccurs="1" />
+
+        <!-- Traffic data by vehicle type. -->
+        <xs:element ref="trafficDatum" minOccurs="1" maxOccurs="1"/>
+
+        <!-- Quantity type is optional because it can be
+             assigned at the <linkStateSet> level. -->
+        <xs:element ref="quantity_type" minOccurs="0" maxOccurs="1"/>
+
+        <!-- Aggregation type ID -->
+        <xs:element ref="aggregation_type" minOccurs="0" maxOccurs="1"/>
+
+        <!-- Application type ID -->
+        <xs:element ref="application_type" minOccurs="0" maxOccurs="1"/>
+      </xs:all>
+
+      <!-- Link ID. -->
+      <xs:attribute name="id" type="xs:long" use="required"/>
+
+      <!-- Network reference is optional at this level:
+           it is only used when the state is requested
+           for a standalone link. Otherwise, look for
+           network_id in <linkStateSet>. -->
+      <xs:attribute name="network_id" type="xs:long" use="optional"/>
+
+      <!-- Run ID is optional - it can be
+           assigned at the <linkStateSet> level. -->
+      <xs:attribute name="run_id" type="xs:long" use="optional"/>
+
+      <!-- dt is the time interval, for which the state is
+             aggregated - just like network_id, this attribute
+         is optional for the same reason. -->
+      <xs:attribute name="dt" type="xs:double" use="optional"/>
+
+      <xs:attribute name="density" type="xs:double" use="required"/>
+
+      <!-- Optionally, we can stick fundamental diagram parameters
+           into the link state: free flow speed, critical speed,
+           and capacity. Capacity values are total, not(!) per lane. -->
+      <xs:attribute name="ff_speed" type="xs:double" use="optional"/>
+      <xs:attribute name="crit_speed" type="xs:double" use="optional"/>
+      <xs:attribute name="congestion_speed" type="xs:double" use="optional"/>
+      <xs:attribute name="capacity" type="xs:double" use="optional"/>
+      <xs:attribute name="jam_density" type="xs:double" use="optional"/>
+      <xs:attribute name="capacity_drop" type="xs:double" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="linkState-debug">
+    <xs:complexType>
+      <xs:all>
+        <!-- Timestamp for the link state - optional, because
+	     it can be assigned to the <linkStateSet> at once. -->
+        <xs:element name="timestamp" type="dateTime" minOccurs="0" maxOccurs="1" />
+
+        <!-- Traffic data by vehicle type. -->
+        <xs:element ref="trafficDatum" minOccurs="1" maxOccurs="1"/>
+
+        <!-- Quantity type is optional because it can be
+             assigned at the <linkStateSet> level. -->
+        <xs:element ref="quantity_type" minOccurs="0" maxOccurs="1"/>
+
+        <!-- Aggregation type ID -->
+        <xs:element ref="aggregation_type" minOccurs="0" maxOccurs="1"/>
+
+        <!-- Application type ID -->
+        <xs:element ref="application_type" minOccurs="0" maxOccurs="1"/>
+      </xs:all>
+
+      <!-- Link ID. -->
+      <xs:attribute name="id" type="xs:long" use="required"/>
+
+      <!-- Network reference is optional at this level:
+           it is only used when the state is requested
+           for a standalone link. Otherwise, look for
+           network_id in <linkStateSet>. -->
+      <xs:attribute name="network_id" type="xs:long" use="optional"/>
+
+      <!-- Run ID is optional - it can be
+           assigned at the <linkStateSet> level. -->
+      <xs:attribute name="run_id" type="xs:long" use="optional"/>
+
+      <!-- Particle ID is used in ensemble estimation or prediction
+           for debug purpose only. When particle ID is set,
+           quantity_type is implied to be 'standard'.
+           Particle ID can be also assigned at the <linkStateSet> level. -->
+      <xs:attribute name="particle_id" type="xs:long" use="optional" default="-1"/>
+
+      <!-- dt is the time interval, for which the state is
+           aggregated - just like network_id, this attribute
+	   is optional for the same reason. -->
+      <xs:attribute name="dt" type="xs:double" use="optional"/>
+
+      <!-- Optionally, we can stick fundamental diagram parameters
+           into the link state: free flow speed, critical speed,
+           and capacity. Capacity values are total, not(!) per lane. -->
+      <xs:attribute name="ff_speed" type="xs:double" use="optional"/>
+      <xs:attribute name="crit_speed" type="xs:double" use="optional"/>
+      <xs:attribute name="congestion_speed" type="xs:double" use="optional"/>
+      <xs:attribute name="capacity" type="xs:double" use="optional"/>
+      <xs:attribute name="jam_density" type="xs:double" use="optional"/>
+      <xs:attribute name="capacity_drop" type="xs:double" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="linkState-detail">
+    <xs:complexType>
+      <xs:all>
+        <!-- Timestamp for the link state - optional, because
+	     it can be assigned to the <linkStateSet> at once. -->
+        <xs:element name="timestamp" type="dateTime" minOccurs="0" maxOccurs="1" />
+
+        <!-- Vehicle type defines the order of density
+             and flow values in the corresponding elements.
+             This can be assigned at the <linkStateSet> level. -->
+        <xs:element ref="vehicleType" minOccurs="0" maxOccurs="1"/>
+
+        <!-- Traffic data by vehicle type. -->
+        <xs:element ref="trafficDatum" minOccurs="1" maxOccurs="1"/>
+
+        <!-- Quantity type is optional because it can be
+             assigned at the <linkStateSet> level. -->
+        <xs:element ref="quantity_type" minOccurs="0" maxOccurs="1"/>
+
+        <!-- Aggregation type ID -->
+        <xs:element ref="aggregation_type" minOccurs="0" maxOccurs="1"/>
+
+        <!-- Application type ID -->
+        <xs:element ref="application_type" minOccurs="0" maxOccurs="1"/>
+      </xs:all>
+
+      <!-- Link ID. -->
+      <xs:attribute name="id" type="xs:long" use="required"/>
+
+      <!-- Network reference is optional at this level:
+           it is only used when the state is requested
+           for a standalone link. Otherwise, look for
+           network_id in <linkStateSet>. -->
+      <xs:attribute name="network_id" type="xs:long" use="optional"/>
+
+      <!-- Run ID is optional - it can be
+           assigned at the <linkStateSet> level. -->
+      <xs:attribute name="run_id" type="xs:long" use="optional"/>
+
+      <!-- dt is the time interval, for which the state is
+           aggregated - just like network_id, this attribute
+	   is optional for the same reason. -->
+      <xs:attribute name="dt" type="xs:double" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- Quantity Type -->
+  <xs:element name="quantity_type">
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:long" use="required" />
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="description" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Application type -->
+  <xs:element name="application_type">
+    <xs:complexType>
+      <xs:attribute name="id" type="xs:long" use="required" />
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="description" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+    <!-- Application type -->
+    <xs:element name="aggregation_type">
+        <xs:complexType>
+            <xs:attribute name="id" type="xs:long" use="required" />
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="description" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+
+  <!-- Link Performance -->
+  <xs:element name="linkPerformance">
+    <xs:complexType>
+      <xs:all>
+        <!-- Timestamp for the link performance - optional, because
+	     it can be assigned to the <linkPerformanceSet> at once. -->
+				<xs:element name="timestamp" type="dateTime" minOccurs="0" maxOccurs="1" />
+
+	<!-- Traffic performance by vehicle type. -->
+        <xs:element ref="trafficPerformanceByVehicleType" minOccurs="1" maxOccurs="1"/>
+      </xs:all>
+
+      <!-- Link ID. -->
+      <xs:attribute name="id" type="xs:long" use="required"/>
+
+      <!-- Network reference is optional at this level:
+           it is only used when the performance is requested
+           for a standalone link. Otherwise, look for
+           network_id in <linkPerformanceSet>. -->
+      <xs:attribute name="network_id" type="xs:long" use="optional"/>
+
+      <!-- Run ID is optional - it can be 
+           assigned at the <linkPerformanceSet> level. -->
+      <xs:attribute name="run_id" type="xs:long" use="optional"/>
+
+      <!-- dt is the time interval, for which the performance is
+           aggregated - just like network_id, this attribute
+	   is optional for the same reason. -->
+      <xs:attribute name="dt" type="xs:double" use="optional"/>
+      
+      <!-- Quantity type is optional because it can be
+           assigned at the <linkPerformanceSet> level. -->
+      <xs:attribute name="quantity_type" use="optional">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="standard|mean|median|1q|3q|95|min|max|best|worst"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      
+      <!-- Productivity Loss:
+           productivity_loss = 0, if speed == ff_speed;
+	   otherwise, productivity_loss =
+           (1 - outflow / capacity) * lanes * link_length * dt. -->
+      <xs:attribute name="productivity_loss" type="xs:double" use="optional"/>
+
+      <!-- Volume (demand) to capacity ratio. -->
+      <xs:attribute name="vc_ratio" type="xs:double" use="optional"/>
+
+      <!-- Level Of Service - defined in Highway Capacity Manual. -->
+      <xs:attribute name="los" type="xs:double" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Traffic performance by vehicle type. -->
+  <xs:element name="trafficPerformanceByVehicleType">
+    <xs:complexType>
+      <xs:sequence>
+	    <!-- Traffic performance by destination network. -->
+        <xs:element ref="trafficPerformance" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Traffic Datum -->
+  <xs:element name="trafficDatum">
+    <xs:complexType>
+      <xs:attribute name="destination_network_id" type="xs:long" use="optional"/>
+      <!-- Vehicle count takes care of both,
+           density = vehicle_count / link_length
+           and queue size in the case of origin links, 
+           when length may be 0. -->
+      <xs:attribute name="vehicle_count" type="xs:double" use="optional"/>
+      <xs:attribute name="speed" type="xs:double" use="optional"/>
+      <xs:attribute name="inflow" type="xs:double" use="optional"/>
+      <xs:attribute name="outflow" type="xs:double" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- Traffic Performance -->
+  <xs:element name="trafficPerformance">
+    <xs:complexType>
+      <xs:attribute name="destination_network_id" type="xs:long" use="optional"/>
+
+      <!-- Vehicle Miles Traveled:
+           vehicle_count * speed * dt. -->
+      <xs:attribute name="vmt" type="xs:double" use="optional"/>
+
+      <!-- Vehicle Hours Traveled:
+           vehicle_count * dt. -->
+      <xs:attribute name="vht" type="xs:double" use="optional"/>
+
+      <!-- Delay: VHT - VMT / ff_speed. -->
+      <xs:attribute name="delay" type="xs:double" use="optional"/>
+
+      <!-- Average travel time through the link. -->
+      <xs:attribute name="travel_time" type="xs:double" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  
+
+
+
+
+
+  <!-- Signal State Set -->
+  <xs:element name="signalStateSet">
+    <xs:complexType>
+      <xs:all>
+				<xs:element name="timestamp" type="dateTime" minOccurs="0" maxOccurs="1" />
+
+        <!-- List of signal states. -->
+        <xs:element ref="signalState" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:all>
+
+      <!-- Network reference - if used at this level, it
+           applies to the states of all signals in the set. -->
+      <xs:attribute name="network_id" type="xs:long" use="optional"/>
+
+      <!-- Run ID - if used at this level, it
+           applies to the states of all signals in the set. -->
+      <xs:attribute name="run_id" type="xs:long" use="optional"/>
+
+      <!-- Aggregation time interval - if used at this level, it
+           applies to the states of all signals in the set. -->
+      <xs:attribute name="dt" type="xs:double" use="optional"/>
+
+      <!-- Quantity type - if used at this level, it
+           applies to the states of all signals in the set. -->
+      <xs:attribute name="quantity_type" use="optional">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="standard|mean|median|1q|3q|95|min|max|best|worst"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- Signal Performance Set -->
+  <xs:element name="signalPerformanceSet">
+    <xs:complexType>
+      <xs:all>
+				<xs:element name="timestamp" type="dateTime" minOccurs="0" maxOccurs="1" />
+
+        <!-- List of signal performances. -->
+        <xs:element ref="signalPerformance" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:all>
+
+      <!-- Network reference - if used at this level, it
+           applies to the performances of all signals in the set. -->
+      <xs:attribute name="network_id" type="xs:long" use="optional"/>
+
+      <!-- Run ID - if used at this level, it
+           applies to the performances of all signals in the set. -->
+      <xs:attribute name="run_id" type="xs:long" use="optional"/>
+
+      <!-- Aggregation time interval - if used at this level, it
+           applies to the performances of all signals in the set. -->
+      <xs:attribute name="dt" type="xs:double" use="optional"/>
+
+      <!-- Quantity type - if used at this level, it
+           applies to the performances of all signals in the set. -->
+      <xs:attribute name="quantity_type" use="optional">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="standard|mean|median|1q|3q|95|min|max|best|worst"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+
+  
+  <!-- Signal State -->
+  <xs:element name="signalState">
+    <xs:complexType>
+      <xs:all>
+        <!-- Timestamp for the signal state - optional, because
+	     it can be assigned to the <signalStateSet> at once. -->
+				<xs:element name="timestamp" type="dateTime" minOccurs="0" maxOccurs="1" />
+
+        <!-- Green information per  phase. -->
+        <xs:element ref="phaseDatum" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:all>
+
+      <!-- Signal ID. -->
+      <xs:attribute name="id" type="xs:long" use="required"/>
+
+      <!-- Network reference is optional at this level:
+           it is only used when the state is requested
+           for a standalone signal. Otherwise, look for
+           network_id in <signalStateSet>. -->
+      <xs:attribute name="network_id" type="xs:long" use="optional"/>
+
+      <!-- Run ID is optional - it can be 
+           assigned at the <signalStateSet> level. -->
+      <xs:attribute name="run_id" type="xs:long" use="optional"/>
+
+      <!-- dt is the time interval, for which the performance is
+           aggregated - just like network_id, this attribute
+	   is optional for the same reason. -->
+      <xs:attribute name="dt" type="xs:double" use="optional"/>
+      
+      <!-- Quantity type is optional because it can be
+           assigned at the <signalStateSet> level. -->
+      <xs:attribute name="quantity_type" use="optional">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="standard|mean|median|1q|3q|95|min|max|best|worst"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+
+  
+  <!-- Phase Datum -->
+  <xs:element name="phaseDatum">
+    <xs:complexType>
+      <xs:all>
+        <!-- Begin time of the green period of the given signal phase.
+             This value makes sense only in raw data. -->
+				<xs:element name="timestamp" type="dateTime" minOccurs="0" maxOccurs="1" />
+      </xs:all>
+
+      <!-- Phase number: 1-16. -->
+      <xs:attribute name="phase" type="xs:integer" use="required"/>
+
+      <!-- Duration of green for the reporting period. -->
+      <xs:attribute name="duration" type="xs:double" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- Signal Performance -->
+  <xs:element name="signalPerformance">
+    <xs:complexType>
+      <xs:all>
+        <!-- Timestamp for the signal performance - optional, because
+	     it can be assigned to the <signalPerformanceSet> at once. -->
+				<xs:element name="timestamp" type="dateTime" minOccurs="0" maxOccurs="1" />
+
+        <!-- Signal performance per phase. -->
+        <xs:element ref="phasePerformance" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:all>
+
+      <!-- Network reference - if used at this level, it
+	   applies to all the phases in the signal. -->
+      <xs:attribute name="network_id" type="xs:long" use="optional"/>
+
+      <!-- Run ID - if used at this level, it
+	   applies to all the phases in the signal. -->
+      <xs:attribute name="run_id" type="xs:long" use="optional"/>
+
+      <!-- Aggregation time interval - if used at this level, it
+	   applies to all the phases in the signal. -->
+      <xs:attribute name="dt" type="xs:double" use="optional"/>
+
+      <!-- Quantity type - if used at this level, it
+	   applies to all the phases in the signal. -->
+      <xs:attribute name="quantity_type" use="optional">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="standard|mean|median|1q|3q|95|min|max|best|worst"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- Phase Performance -->
+  <xs:element name="phasePerformance">
+    <xs:complexType>
+      <!-- Signal ID. -->
+      <xs:attribute name="id" type="xs:long" use="required"/>
+
+      <!-- Network reference is optional at this level:
+           it is only used when the performance is requested
+           for a standalone signal. Otherwise, look for
+           network_id in <signalPerformance>. -->
+      <xs:attribute name="network_id" type="xs:long" use="optional"/>
+
+      <!-- Run ID is optional - it can be 
+           assigned at the <signalPerformance> level. -->
+      <xs:attribute name="run_id" type="xs:long" use="optional"/>
+
+      <!-- dt is the time interval, for which the performance is
+           aggregated - just like network_id, this attribute
+	   is optional for the same reason. -->
+      <xs:attribute name="dt" type="xs:double" use="optional"/>
+      
+      <!-- Quantity type is optional because it can be
+           assigned at the <signalPerformance> level. -->
+      <xs:attribute name="quantity_type" use="optional">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:pattern value="standard|mean|median|1q|3q|95|min|max|best|worst"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+
+      <!-- Phase number: 1-16. -->
+      <xs:attribute name="phase" type="xs:integer" use="required"/>
+
+      <!-- Phase Utilization: percentage of green used. -->
+      <xs:attribute name="phase_utilization" type="xs:double" use="optional"/>
+
+      <!-- Progression Quality: percentage of vehicles arring during green
+           period. -->
+      <xs:attribute name="progression_quality" type="xs:double" use="optional"/>
+
+      <!-- Delay per Cycle for a given phase. -->
+      <xs:attribute name="delay_per_cycle" type="xs:double" use="optional"/>
+
+      <!-- Queue Size: number of vehicles waiting for green. -->
+      <xs:attribute name="queue_size" type="xs:double" use="optional"/>
+
+      <!-- Number of Stops: number of cycles needed to pass through
+           the intersection. -->
+      <xs:attribute name="number_of_stops" type="xs:double" use="optional"/>
+
+    </xs:complexType>
+  </xs:element>
+
+
+
+</xs:schema>
