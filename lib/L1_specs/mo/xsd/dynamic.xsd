@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.0.2">
+	<xs:include schemaLocation="generic.xsd"/>
+
+<!-- DynamicDemandSet .......................................................... -->
+
+	<xs:element name="DynamicDemandSet">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="description" minOccurs="0"/>
+				<xs:element ref="DynamicDemandProfile" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="est_tstamp" type="dateTime" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:long" use="required"/>
+			<xs:attribute name="name" type="xs:string" use="optional" default=""/>
+			<xs:attribute name="app_run_id" type="xs:long" use="required"/>
+			<xs:attribute name="crudFlag" type="xs:string" use="optional"/>
+			<xs:attribute name="mod_stamp" type="xs:string" use="optional" default="0"/>
+			<xs:attribute name="lockedForEdit" type="xs:boolean" use="optional" default="false"/>
+			<xs:attribute name="lockedForHistory" type="xs:boolean" use="optional" default="false"/>
+		</xs:complexType>
+	</xs:element>
+
+		<xs:element name="DynamicDemandProfile">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="DynamicDemand" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:long" use="required"/>
+			<xs:attribute name="crudFlag" type="xs:string" use="optional"/>
+			<xs:attribute name="knob" type="xs:double" use="optional"  default="1"/>
+			<!-- time stamp in [units of time] after midnight -->
+			<xs:attribute name="start_time" type="xs:double" use="optional" default="0" />
+			<!-- time step in [units of time] -->
+			<xs:attribute name="dt" type="xs:double" use="optional" />
+			<xs:attribute name="link_id_org" type="xs:long" use="required" />
+			<xs:attribute name="destination_network_id" type="xs:long" use="optional" />
+			<!-- [veh/time unit] -->
+			<xs:attribute name="std_dev_add" type="xs:double" use="optional"/>
+			<!-- [portion] -->
+			<xs:attribute name="std_dev_mult" type="xs:double" use="optional"/>
+			<xs:attribute name="mod_stamp" type="xs:string" use="optional" />
+		</xs:complexType>
+		</xs:element>
+
+			<xs:element name="DynamicDemand">
+			<xs:complexType mixed="true">		<!-- content in [veh/time unit] -->
+				<xs:attribute name="vehicle_type_id" type="xs:long" use="required" />
+				<xs:attribute name="ids" type="xs:string" use="optional"/>
+				<xs:attribute name="crudFlags" type="xs:string" use="optional"/>
+				<xs:attribute name="mod_stamps" type="xs:string" use="optional" />
+			</xs:complexType>
+			</xs:element>
+
+
+		<!-- DynamicSplitRatioSet ...................................................... -->
+
+	<xs:element name="DynamicSplitRatioSet">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="description" minOccurs="0" />
+			<xs:element ref="DynamicSplitRatioProfile" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="est_tstamp" type="dateTime" minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:long" use="required"/>
+		<xs:attribute name="name" type="xs:string" use="optional" default="" />
+		<xs:attribute name="app_run_id" type="xs:long" use="required"/>
+		<xs:attribute name="mod_stamp" type="xs:string" use="optional" default="0" />
+		<xs:attribute name="lockedForEdit" type="xs:boolean" use="optional" default="false" />
+		<xs:attribute name="lockedForHistory" type="xs:boolean" use="optional" default="false" />
+	</xs:complexType>
+	</xs:element>
+
+		<xs:element name="DynamicSplitRatioProfile">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="DynamicSplitRatio" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute name="crudFlag" type="xs:string" use="optional"/>
+			<xs:attribute name="id" type="xs:long" use="required" />
+			<xs:attribute name="node_id" type="xs:long" use="required" />
+			<!-- time stamp in [units of time] after midnight -->
+			<xs:attribute name="start_time" type="xs:double" use="optional" default="0" />
+			<!-- time step in [units of time] -->
+			<xs:attribute name="dt" type="xs:double" use="optional" />
+			<xs:attribute name="network_id" type="xs:long" use="optional" />
+			<xs:attribute name="destination_network_id" type="xs:long" use="optional" />
+			<xs:attribute name="mod_stamp" type="xs:string" use="optional" default="0" />
+		</xs:complexType>
+		</xs:element>
+
+			<xs:element name="DynamicSplitRatio">
+			<xs:complexType mixed="true">	     <!-- text in normalized units -->
+				<xs:attribute name="link_in" type="xs:long" use="required" />
+				<xs:attribute name="link_out" type="xs:long" use="required" />
+				<xs:attribute name="vehicle_type_id" type="xs:long" use="required" />
+				<xs:attribute name="ids" type="xs:string" use="optional"/>
+				<xs:attribute name="crudFlags" type="xs:string" use="optional"/>
+				<xs:attribute name="mod_stamps" type="xs:string" use="optional" />
+			</xs:complexType>
+			</xs:element>
+
+	<!-- InitialDensitySet ..................................................... -->
+
+	<xs:element name="DynamicInitialDensitySet">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="description" minOccurs="0" />
+				<xs:element ref="DynamicDensity" minOccurs="0" maxOccurs="unbounded" />
+				<xs:element name="est_tstamp" type="dateTime" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:long" use="required" />
+			<xs:attribute name="name" type="xs:string" use="optional" default="" />
+			<xs:attribute name="app_run_id" type="xs:long" use="required"/>
+			<!-- time stamp in [units of time] after midnight -->
+			<xs:attribute name="tstamp" type="xs:double" use="optional" default="0.0"/>
+			<xs:attribute name="mod_stamp" type="xs:string" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+		<xs:element name="DynamicDensity">
+			<xs:complexType mixed="true">    <!-- text in vehicles/[unit of length] -->
+				<xs:attribute name="link_id" type="xs:long" use="required" />
+				<xs:attribute name="destination_network_id" type="xs:long" use="optional" />
+			</xs:complexType>
+		</xs:element>
+
+</xs:schema>

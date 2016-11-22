@@ -1,0 +1,4 @@
+1	Triangular	Fundamental Diagram in the shape of a triangle.
+2	Trapezoidal	Fundamental Diagram in the shape of a trapazoid.
+3	Linear-Hyperbolic	Invertible fundamental diagram whose right side is linear.
+4	Greenshields	Fundamental diagram in the form of parabola.

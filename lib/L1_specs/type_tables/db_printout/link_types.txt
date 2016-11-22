@@ -1,0 +1,16 @@
+1	Freeway	This link is a non-toll segment of an uninterrupted roadway.
+2	Highway	This links represents a segment of a roadway that that can have stop signs, signals, etc.  This section of roadway can also exist as a major arterial.
+3	On-Ramp	This is a segment of road that is typicaly used to enter a segment of road that is a Freeway.
+4	Off-Ramp	This is a segment of road that is typicaly used to exit a segment of road that is a Freeway.
+5	Interconnect	Link between two freeways (highways) or a freeway and a highway.
+6	HOV	A link that represents a segment of a roadway reserved for High Occupancy Vehicles.
+7	HOT	A link that represents a segment of a roadway reserved for High Occupancy Traffic or those who pay toll.
+8	Toll Lane	A link that represents a segment of roadway that is restricted to those paying a toll.
+9	Heavy Vehicle Lane	A link that represents a segment of roadway that heavy cehicles are restricted to using.
+10	Bus Lane	A link that represents a segment of roadway that is reserved for busses only.
+11	Street	A link that represents a segment of roadway that is a street ( a roadway that is not a highway or freeway ).
+12	Intersection Approach	An input link for Signalized Intersection node, parallel to left and right pockets, that is there for the through movement.
+13	Left Turn Pocket	A link that represents a segment of the roadway reserved for traffic to wait to make a left turn.
+14	Right Turn Pocket	A link that represents a segment of the roadway reserved for traffic to wait to make a right turn.
+15	Source	This type designates a special link that holds an amount of demand ( generally in density) unrelated to any real world sensor and provides a place for a queue to be built.  NO OTHER DEMAND SOURCE ( such as a VDS ) is permited to be associated with a link of this type.
+16	Sink	This type designates a special link that removes an amount of data from a network ( typicaly in density ).  NO inflow is permitte4d on this link and neither is any sort of other sensor. 

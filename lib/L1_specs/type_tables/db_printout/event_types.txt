@@ -1,0 +1,6 @@
+1	Link Lanes	Changes number of lanes in a link.
+2	Link FD	Changes number of lanes in a link.
+3	Link Demand Coefficient	Changes coefficient by which demand is multiplied at given origin link.
+4	Node Split Ratios		Changes split ratios at a node.
+5	Global Control Switch		Turns all controllers on and off.
+6	Global Demand Coefficient	Changes demand coefficients at all origin links of scenario networks.

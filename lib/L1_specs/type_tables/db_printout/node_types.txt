@@ -1,0 +1,7 @@
+1	Freeway	Nodes at on-ramp/interconnect merges, off-ramp/interconnect splits, HOV/HOT gates on freeways.
+2	Highway	Nodes at on-ramp/interconnect merges, off-ramp/interconnect splits, HOV/HOT gates on freeways.
+3	Signalized Intersection	Signals can be placed on nodes only of this type.
+4	Stop Intersection	An Interection where traffic is required to stop.
+5	Simple	Single-Input-Single-Output (SISO) node, where the input and the output links have the same properties.
+6	Terminal	Node that has only 1 input or only 1 output link – it is either the begin node for an origin link, or the end node for the destination link.
+7	Other	Reserved for those node types that lack any explanation that is defined at this point.

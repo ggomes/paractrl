@@ -1,0 +1,13 @@
+1	General	A general vehicle type with no qualification
+2	SOV	A single occupancy Vehicle
+3	HOV	A high occupancy vehicle
+4	Hybrid	Typical fossil fucel / electric vehicle
+5	Electric	An all electric vehicle, eg: Leaf, Volt, etc.
+6	Truck 2	EN
+7	Truck 3	EN
+8	Truck 4	EN
+9	Truck 5	EN
+11	Truck 6	EN
+12	Bus	A typical bus
+13	Bus 2	A typical articulated bus
+10	Motorcycle	A typical motorcycle

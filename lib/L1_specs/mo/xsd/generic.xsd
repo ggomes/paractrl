@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.0.2">
+
+  <!-- project ................................................................... -->
+  <xs:element name="project">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="description" minOccurs="0" maxOccurs="1" />
+      </xs:all>
+      <xs:attribute name="id" type="xs:long" use="required" />
+      <xs:attribute name="name" type="xs:string" use="required" />
+      <xs:attribute name="mod_stamp" type="xs:string" use="optional" />
+    </xs:complexType>
+  </xs:element>
+
+  <!-- position .................................................................. -->
+
+	<xs:element name="position">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="point" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="display_position">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="point" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+		<xs:element name="point">
+			<xs:complexType>
+				<xs:attribute name="lat" type="xs:double" use="required" />
+				<xs:attribute name="lng" type="xs:double" use="required" />
+				<xs:attribute name="elevation" type="xs:double" use="optional" default="0" />
+			</xs:complexType>
+		</xs:element>
+
+  <!-- description .................................................................. -->
+  <!-- used by scenario, network, node, link, sensor, event, and all profiles and sets. -->
+  
+  <xs:element name="description" type="xs:string" />  
+   
+  <!-- parameters .................................................................. -->
+  <!-- used by sensor, controller, queue_controller, etc. -->
+  
+	<xs:element name="parameters">   
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="parameter" minOccurs="0" maxOccurs="unbounded" />
+				<xs:element ref="description" minOccurs="0" maxOccurs="1" />
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:long" use="optional" />
+			<xs:attribute name="name" type="xs:string" use="optional" />
+			<xs:attribute name="type_id" type="xs:long" use="optional" />
+			<xs:attribute name="mod_stamp" type="xs:string" use="optional" default="0" />
+			<xs:attribute name="crudFlag" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>  
+
+		<xs:element name="parameter">
+			<xs:complexType>
+				<xs:attribute name="id" type="xs:long" use="optional" />
+				<xs:attribute name="name" type="xs:string" use="required" />
+				<xs:attribute name="value" type="xs:string" use="required" />
+				<xs:attribute name="mod_stamp" type="xs:string" use="optional" default="0" />
+				<xs:attribute name="crudFlag" type="xs:string" use="optional"/>
+			</xs:complexType>
+		</xs:element>
+
+  <!-- table .................................................................. -->
+
+	<xs:element name="table">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="column_names" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="row" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+		<xs:element name="column_names">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element ref="column_name" minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+
+			<xs:element name="column_name">
+				<xs:complexType>
+					<xs:attribute name="name" type="xs:string" use="required" />
+					<xs:attribute name="key" type="xs:boolean" use="required" />
+				</xs:complexType>
+			</xs:element>
+
+		<xs:element name="row">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element ref="column" minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+
+			<xs:element name="column">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:element>
+
+		
+  <!-- time .................................................................. -->
+
+	<xs:complexType name="duration">
+		<xs:attribute name="milliseconds" type="xs:long" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="dateTime">
+		<xs:attribute name="milliseconds" type="xs:long" use="required" />
+	</xs:complexType>
+
+</xs:schema>
+

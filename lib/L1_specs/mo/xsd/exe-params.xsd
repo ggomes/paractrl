@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.0.2">
+  <xs:include schemaLocation="generic.xsd"/>
+ 
+  <xs:element name="EnKFConfig">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="dtEnKF" type="duration" minOccurs="0"/>
+        <xs:element name="PemsBlackList" type="valueList"/>
+      </xs:all>
+      <xs:attribute name="enkfType" type="xs:string" use="required"/>
+      <xs:attribute name="includePeMS" type="xs:boolean" use="required"/> 
+      <xs:attribute name="pemsNoiseMean" type="xs:double" use="optional" default="0"/>
+      <xs:attribute name="pemsNoiseStdev" type="xs:double" use="optional" default="0"/>
+      
+      <xs:attribute name="probeProbabilityThreshold" type="xs:double" use="required"/>
+      <xs:attribute name="probeSpeedThreshold" type="xs:double" use="required"/>
+      <xs:attribute name="includeNavteq" type="xs:boolean" use="required" />
+      <xs:attribute name="navteqNoiseMean" type="xs:double" use="optional" default="0" />
+      <xs:attribute name="navteqNoiseStdev" type="xs:double" use="optional" default="0" />
+      <xs:attribute name="navteqPercentage" type="xs:double" use="optional" default="0" />
+      <xs:attribute name="includeTelenav" type="xs:boolean" use="required" />
+      <xs:attribute name="telenavNoiseMean" type="xs:double" use="optional" default="0" />
+      <xs:attribute name="telenavNoiseStdev" type="xs:double" use="optional" default="0" />
+      <xs:attribute name="telenavPercentage" type="xs:double" use="optional" default="0" />
+      <xs:attribute name="useLocalization" type="xs:boolean" use="required" />
+      <xs:attribute name="localizationDistance" type="xs:double" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="EstimationParams">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="EnKFConfig" minOccurs="1" />
+        <xs:element name="dtOutput" type="duration" minOccurs="1" />
+        <xs:element name="liveModeLag" type="duration" minOccurs="1" />
+        <xs:element name="timeBegin" type="dateTime" minOccurs="1" />
+        <xs:element name="timeEnd" type="dateTime" minOccurs="1" />
+      </xs:all>
+      <xs:attribute name="id" type="xs:long" use="required"/>
+      <xs:attribute name="name" type="xs:long" use="required"/>
+      <xs:attribute name="runMode" type="xs:string" use="required"/>
+      <xs:attribute name="workflow" type="xs:string" use="required"/>
+      <xs:attribute name="ctmType" type="xs:string" use="required"/>
+      <xs:attribute name="ensembleSize" type="xs:int" use="required"/>
+      <xs:attribute name="additiveModelNoiseMean" type="xs:double" use="required" />
+      <xs:attribute name="additiveModelNoiseStdDev" type="xs:double" use="required" />
+      <xs:attribute name="fdType" type="xs:string" use="required" />
+      <xs:attribute name="additiveVelocityFunctionNoiseMean" type="xs:double" use="required" />
+      <xs:attribute name="additiveVelocityFunctionNoiseStdDev" type="xs:double" use="required" />
+      <xs:attribute name="EstimationForecastConfig" type="xs:double" use="optional" default="0" />
+      <xs:attribute name="includeTelenav" type="xs:boolean" use="required" />
+      <xs:attribute name="telenavNoiseMean" type="xs:double" use="optional" default="0" />
+      <xs:attribute name="telenavNoiseStdev" type="xs:double" use="optional" default="0" />
+      <xs:attribute name="telenavPercentage" type="xs:double" use="optional" default="0" />
+      <xs:attribute name="useLocalization" type="xs:boolean" use="required" />
+      <xs:attribute name="localizationDistance" type="xs:double" use="required" />
+      <xs:attribute name="reportStatisticsAfterCTM" type="xs:boolean" use="required" />
+      <xs:attribute name="reportEnsembleAfterCTM" type="xs:boolean" use="required" />
+      <xs:attribute name="reportStatisticsAfterEnKF" type="xs:boolean" use="required" />
+      <xs:attribute name="reportEnsembleAfterEnKF" type="xs:boolean" use="required" />
+      <xs:attribute name="reportStatisticsHistory" type="xs:boolean" use="required" />
+      <xs:attribute name="reportToDB" type="xs:boolean" use="required" />
+      <xs:attribute name="reportToDirectory" type="xs:boolean" use="required" />
+      <xs:attribute name="reportDirectory" type="xs:string" use="required" />
+      <xs:attribute name="initialStateUncertainty" type="xs:double" use="optional" default="0.0" />
+      <xs:attribute name="initialDensityFraction" type="xs:double" use="required" />
+
+      <!-- TODO ADD freewayCTMEnsembleState and FreewayCTMState -->
+    </xs:complexType>
+  </xs:element>
+
+  
+  <xs:simpleType name="valueList">
+    <xs:list itemType="xs:int"/>
+  </xs:simpleType>
+
+  </xs:schema>
