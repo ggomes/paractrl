@@ -67,7 +67,7 @@ classdef BeatsSimulation < handle
         % load scenario from xml ............................
         function [obj]=load_scenario(obj,cfgfile)
             obj.reset_object();
-            [~,success] = obj.scenario_ptr.load(cfgfile);
+            [~,success] = obj.scenario_ptr.load(cfgfile,false);
             if(success)
                 obj.config_loaded = true;
                 obj.configfile = cfgfile;
