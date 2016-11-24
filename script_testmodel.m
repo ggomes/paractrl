@@ -25,6 +25,8 @@ allday_demands = model.get_demands(20000,300,50000);
 
 random_state = model.get_random_state;
 zero_state = model.get_zero_state;
+num_ctrl_seq=[10 50 40];
+simple_controller = SimpleController(model);
 
-[control_sequence,state_trajectory] = model.run_with_controller(nan,zero_state,allday_demands,record_dt);
+[control_sequence,state_trajectory] = model.run_with_controller(simple_controller,zero_state,allday_demands,record_dt);
  
