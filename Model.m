@@ -5,9 +5,9 @@ classdef Model < handle
     properties
         dt                      % seconds
         current_time;           % seconds after midnight
-        link_ids                % 1 x I ... link ids
-        controlled_link_ids     % 1 x Ic ... list of links that have ramp meters on them
-        source_link_ids         % 1 x Is ... list o links that are sources of demand. 
+        link_ids                % I x 1 ... link ids
+        controlled_link_ids     % Ic x 1 ... list of links that have ramp meters on them
+        source_link_ids         % Is x 1 ... list o links that are sources of demand. 
         demands                 % structure array with demand information ordered like source_link_ids
         beats
     end
@@ -24,7 +24,7 @@ classdef Model < handle
             this.beats.create_beats_object(struct('SIM_DT',dt))
             this.beats.intialize_beats_persistent(struct('SIM_DT',4,'OUTPUT_DT',300));
 
-            this.link_ids = this.beats.scenario_ptr.get_link_ids;
+            this.link_ids = Utils.column(this.beats.scenario_ptr.get_link_ids);
             
             if ~isfield(this.beats.scenario_ptr.scenario,'ActuatorSet')
                 error('1')
@@ -62,14 +62,14 @@ classdef Model < handle
             end
             
             ctrl_act_ids = arrayfun(@(x) x.ATTRIBUTE.id ,this.beats.scenario_ptr.scenario.ControllerSet.controller.target_actuators.target_actuator);
-            this.controlled_link_ids = actuator_link_ids(2,ismember(actuator_link_ids(1,:),ctrl_act_ids));
-            this.source_link_ids =this.link_ids(this.beats.scenario_ptr.is_source_link);
+            this.controlled_link_ids = Utils.column(actuator_link_ids(2,ismember(actuator_link_ids(1,:),ctrl_act_ids)));
+            this.source_link_ids = Utils.column(this.link_ids(this.beats.scenario_ptr.is_source_link));
             
             % store demand profiles
             demand_prof = this.beats.scenario_ptr.get_demandprofiles_with_IDs(this.source_link_ids);
             numdemand = numel(demand_prof);
             
-            this.demands = repmat(struct('link_id',nan,'time',[],'vph',[]),1,numel(this.source_link_ids));
+            this.demands = repmat(struct('link_id',nan,'time',[],'vph',[]),numel(this.source_link_ids),1);
             for i=1:numdemand
                 ind = this.source_link_ids==demand_prof(i).ATTRIBUTE.link_id_org;
                 this.demands(ind).link_id = demand_prof(i).ATTRIBUTE.link_id_org;
@@ -181,6 +181,7 @@ classdef Model < handle
             x.link_veh = this.beats.beats.get.totalDensity(nan);
         end
         
+        % u is a singleton ControlSequence
         function []=set_control(this,u)
             warning('implement this')
         end

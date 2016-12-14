@@ -1,15 +1,13 @@
 classdef SimpleController < AbstractController
     
     properties
-        source_link_ids
-        rate
+        rate        % [units?]
     end
     
     methods
         
         function this = SimpleController(model,rate)
-            this@AbstractController(1);
-            this.source_link_ids = model.source_link_ids;
+            this@AbstractController(model);
             this.rate = rate;
         end
         

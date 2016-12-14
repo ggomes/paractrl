@@ -7,7 +7,7 @@ classdef FeedbackController < AbstractController
     methods
         
         function this = FeedbackController(model)
-            this@AbstractController(1);
+            this@AbstractController(model);
             this.model = model;
         end
         

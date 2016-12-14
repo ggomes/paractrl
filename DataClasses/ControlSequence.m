@@ -11,8 +11,8 @@ classdef ControlSequence < handle
         
         function this = ControlSequence(controller,link_ids)
             this.controller = controller;
-            this.link_ids = link_ids;
-            this.control_sequence = [];
+            this.link_ids = Utils.column(link_ids);
+            this.control_sequence = nan(numel(link_ids),0);
             this.time = [];
         end
         
@@ -20,6 +20,10 @@ classdef ControlSequence < handle
         function this = add_values(this,t,c)
             this.time = [this.time t];
             this.control_sequence = [this.control_sequence c];            
+        end
+        
+        function [x] = is_singleton(this)
+            x = numel(this.time)==1;
         end
         
     end
