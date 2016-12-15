@@ -31,11 +31,13 @@ rate = 50;
 simple_controller = SimpleController(model,rate);
 % simple_controller.compute_control_sequence(random_state,allday_demands)
 
+% make alinea controller
 alinea_param.gain_kph = 100;
 alinea_param.tgt_dty_vpk = 120;
 alinea_param.u_max_vph = 900;
 alinea_param.u_min_vph = 100;
 alinea = AlineaFeedbackController(model,alinea_param);
 
+% run the model with alinea
 [control_sequence,state_trajectory] = model.run_with_controller(alinea,zero_state,allday_demands,record_dt);
  

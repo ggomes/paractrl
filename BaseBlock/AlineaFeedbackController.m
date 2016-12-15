@@ -4,7 +4,6 @@ classdef AlineaFeedbackController < FeedbackController
         u_prev_vph          % Ix1 [veh/hr]
         ml_link_ids         % Ix1 ids for mainline links corresponding to each onramp
         ml_link_length_km   % Ix1 [km] length of the mainline link
-        dt_hr               % [hr] model step time
         gain_kph            % [Ix1] [km/hr]
         tgt_dty_vpk         % [Ix1] [veh/km]
         u_max_vph           % [Ix1] [vph]
@@ -15,7 +14,6 @@ classdef AlineaFeedbackController < FeedbackController
         
         function this = AlineaFeedbackController(model,p)
             this@FeedbackController(model);
-            this.dt_hr = model.dt/3600;
             
             % number of controlled onramps
             n = numel(this.controlled_link_ids);
@@ -75,7 +73,7 @@ classdef AlineaFeedbackController < FeedbackController
                 
             % cast to a ControlSequence
             u = ControlSequence(this,this.controlled_link_ids);
-            u.add_values(time,u_vph * this.dt_hr);
+            u.add_values(time,u_vph);
         end
         
     end

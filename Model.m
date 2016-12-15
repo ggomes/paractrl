@@ -7,9 +7,11 @@ classdef Model < handle
         current_time;           % seconds after midnight
         link_ids                % I x 1 ... link ids
         controlled_link_ids     % Ic x 1 ... list of links that have ramp meters on them
+        actuator_ids            % Ic x 1 ... list of actuator ids
         source_link_ids         % Is x 1 ... list o links that are sources of demand. 
         demands                 % structure array with demand information ordered like source_link_ids
         beats
+        
     end
     
     methods(Access=public)
@@ -61,8 +63,16 @@ classdef Model < handle
                 error('5')
             end
             
+            % check that the controller id is 0
+            if this.beats.scenario_ptr.scenario.ControllerSet.controller.ATTRIBUTE.id~=0
+                error('controller id should be 0')
+            end
+            
+            % keep only those that actuators that appear in the controller
             ctrl_act_ids = arrayfun(@(x) x.ATTRIBUTE.id ,this.beats.scenario_ptr.scenario.ControllerSet.controller.target_actuators.target_actuator);
-            this.controlled_link_ids = Utils.column(actuator_link_ids(2,ismember(actuator_link_ids(1,:),ctrl_act_ids)));
+            have_it = ismember(actuator_link_ids(1,:),ctrl_act_ids);
+            this.actuator_ids = Utils.column(actuator_link_ids(1,have_it));
+            this.controlled_link_ids = Utils.column(actuator_link_ids(2,have_it));
             this.source_link_ids = Utils.column(this.link_ids(this.beats.scenario_ptr.is_source_link));
             
             % store demand profiles
@@ -123,7 +133,7 @@ classdef Model < handle
                     current_control = controller.get_control(current_state,this.current_time);
                     this.set_control(current_control);
                     if mod(this.current_time,record_dt)==0
-                        control_sequence.add_values(this.current_time,current_control);
+                        control_sequence.add_values(current_control.time,current_control.rate_vph);
                     end
                 end
 
@@ -183,7 +193,17 @@ classdef Model < handle
         
         % u is a singleton ControlSequence
         function []=set_control(this,u)
-            warning('implement this')
+            
+            for i=1:length(u.link_ids)
+                ind = u.link_ids(i)==this.controlled_link_ids;
+                if ~any(ind)
+                    error('trying to set control rate on a bad id')
+                end
+                actuator_id = this.actuator_ids(ind);
+                rate_in_vph = u.rate_vph(i);
+                this.beats.beats.set.ramp_metering_rate(0,actuator_id,rate_in_vph)
+            end
+            
         end
         
         function []=advance(this)
